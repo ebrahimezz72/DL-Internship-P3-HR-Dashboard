@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TalentStream | Candidate Screening Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#434655",
+                        "surface-variant": "#d3e4fe",
+                        "surface-dim": "#cbdbf5",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#dae2fd",
+                        "tertiary": "#943700",
+                        "inverse-on-surface": "#eaf1ff",
+                        "primary": "#004ac6",
+                        "on-primary-container": "#eeefff",
+                        "primary-container": "#2563eb",
+                        "surface-container-highest": "#d3e4fe",
+                        "inverse-primary": "#b4c5ff",
+                        "outline": "#737686",
+                        "secondary": "#565e74",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "surface-container": "#e5eeff",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "on-primary-fixed": "#00174b",
+                        "on-surface": "#0b1c30",
+                        "secondary-fixed": "#dae2fd",
+                        "on-secondary-fixed": "#131b2e",
+                        "on-tertiary-container": "#ffede6",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c3c6d7",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface": "#f8f9ff",
+                        "surface-bright": "#f8f9ff",
+                        "surface-container-high": "#dce9ff",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "on-background": "#0b1c30",
+                        "tertiary-container": "#bc4800",
+                        "primary-fixed": "#dbe1ff",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "surface-tint": "#0053db",
+                        "on-secondary-container": "#5c647a",
+                        "on-tertiary-fixed": "#360f00",
+                        "error-container": "#ffdad6",
+                        "inverse-surface": "#213145",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "tertiary-fixed": "#ffdbcd",
+                        "background": "#f8f9ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "lg": "24px",
+                        "base": "4px",
+                        "sm": "8px",
+                        "xl": "32px",
+                        "2xl": "48px",
+                        "3xl": "64px",
+                        "md": "16px",
+                        "xs": "4px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Hanken Grotesk"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "code-sm": ["JetBrains Mono"],
+                        "title-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display-lg": ["Hanken Grotesk"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "code-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .tonal-card-shadow {
+            box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05), 0px 10px 15px -5px rgba(0, 0, 0, 0.03);
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #E2E8F0; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top Navigation -->
+<header class="bg-surface-container-lowest flex justify-between items-center w-full px-lg h-16 sticky top-0 z-50 border-b border-outline-variant shadow-sm">
+<div class="flex items-center gap-xl">
+<span class="text-title-lg font-headline-md font-bold text-primary">TalentStream</span>
+<div class="hidden md:flex relative items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline text-[20px]">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container border-none rounded-lg text-body-md w-80 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="Search candidates, jobs..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-surface-container-lowest"></span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="flex items-center gap-sm ml-2 pl-2 border-l border-outline-variant">
+<span class="text-label-md font-label-md text-on-surface hidden sm:block">Recruiter Admin</span>
+<img alt="Profile" class="w-8 h-8 rounded-full border border-outline-variant" data-alt="A professional headshot of a recruitment manager in a minimalist studio setting. The lighting is soft and even, emphasizing a friendly but professional demeanor. The background is a clean, neutral gray that aligns with a high-end corporate aesthetic. The individual has a polished appearance, contributing to the trustworthy and efficient vibe of an enterprise HR tool." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWZv8Mf_Icfdda7LcBjZ3ePxDOkm69lJXpoKeTjRhBlVRwfquUDu5q4sgtrYCzJpOKMhcddDhSxYd5GPq2g1yClBr2RMN3lz1F92Ss4qrS2lq3U1g5sd2HhFpBSkLK6JUIbzuHZvYFAfOJRhR7pw26PJngI7nZ8tJ5U1IS0mBg6QcB6yCIa6YXdT4Sn3eim2m5EcWc3aqLxGr1jqjwRs-IYZYf7Zr4x-mBYGyFQcVVO5jV2HcrjyXMt55JepaySDK_ZXtVfeFKNOs"/>
+</div>
+</div>
+</header>
+<div class="flex h-[calc(100vh-64px)] overflow-hidden">
+<!-- Filter Sidebar -->
+<aside class="w-72 bg-surface-container-low border-r border-outline-variant flex flex-col p-md space-y-xl overflow-y-auto">
+<div>
+<h3 class="text-label-md font-label-md text-outline-variant uppercase tracking-wider mb-md">Candidate Filters</h3>
+<div class="space-y-md">
+<div>
+<label class="text-label-md font-label-md text-on-surface-variant block mb-base">Experience Level</label>
+<select class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-2 text-body-md focus:ring-primary focus:border-primary">
+<option>All Levels</option>
+<option>Junior (0-2 yrs)</option>
+<option>Mid-Level (3-5 yrs)</option>
+<option>Senior (6+ yrs)</option>
+</select>
+</div>
+<div>
+<label class="text-label-md font-label-md text-on-surface-variant block mb-base">Department</label>
+<div class="space-y-sm">
+<label class="flex items-center gap-sm cursor-pointer hover:bg-surface-container px-2 py-1 rounded transition-colors">
+<input checked="" class="rounded text-primary focus:ring-primary border-outline-variant" type="checkbox"/>
+<span class="text-body-md">Engineering</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer hover:bg-surface-container px-2 py-1 rounded transition-colors">
+<input class="rounded text-primary focus:ring-primary border-outline-variant" type="checkbox"/>
+<span class="text-body-md">Marketing</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer hover:bg-surface-container px-2 py-1 rounded transition-colors">
+<input class="rounded text-primary focus:ring-primary border-outline-variant" type="checkbox"/>
+<span class="text-body-md">Sales</span>
+</label>
+</div>
+</div>
+<div>
+<label class="text-label-md font-label-md text-on-surface-variant block mb-base">Status</label>
+<div class="flex flex-wrap gap-xs">
+<button class="px-3 py-1 bg-primary text-on-primary rounded-full text-label-md">All</button>
+<button class="px-3 py-1 bg-surface-container-highest text-on-surface-variant rounded-full text-label-md hover:bg-surface-variant transition-colors">New</button>
+<button class="px-3 py-1 bg-surface-container-highest text-on-surface-variant rounded-full text-label-md hover:bg-surface-variant transition-colors">Interview</button>
+<button class="px-3 py-1 bg-surface-container-highest text-on-surface-variant rounded-full text-label-md hover:bg-surface-variant transition-colors">Offered</button>
+</div>
+</div>
+</div>
+</div>
+<div class="pt-xl border-t border-outline-variant">
+<button class="w-full bg-primary-container text-on-primary-container font-semibold py-lg rounded-xl tonal-card-shadow flex items-center justify-center gap-sm hover:translate-y-[-1px] transition-transform active:scale-95">
+<span class="material-symbols-outlined">add</span>
+                    Post New Job
+                </button>
+</div>
+</aside>
+<!-- Main Workspace -->
+<main class="flex-1 flex flex-col overflow-hidden">
+<div class="p-lg overflow-y-auto custom-scrollbar">
+<!-- Statistics Section -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg mb-xl">
+<div class="bg-surface-container-lowest p-lg rounded-xl tonal-card-shadow border border-outline-variant/30">
+<div class="flex justify-between items-start mb-sm">
+<div class="p-2 bg-primary/10 rounded-lg text-primary">
+<span class="material-symbols-outlined">group</span>
+</div>
+<span class="text-tertiary font-semibold flex items-center text-label-md">
+<span class="material-symbols-outlined text-sm">trending_up</span> 12%
+                            </span>
+</div>
+<p class="text-label-md font-label-md text-on-surface-variant uppercase">Total Candidates</p>
+<h2 class="text-headline-md font-headline-md mt-1">1,284</h2>
+</div>
+<div class="bg-surface-container-lowest p-lg rounded-xl tonal-card-shadow border border-outline-variant/30">
+<div class="flex justify-between items-start mb-sm">
+<div class="p-2 bg-secondary-container rounded-lg text-secondary">
+<span class="material-symbols-outlined">event_available</span>
+</div>
+<span class="text-tertiary font-semibold flex items-center text-label-md">
+<span class="material-symbols-outlined text-sm">trending_up</span> 8%
+                            </span>
+</div>
+<p class="text-label-md font-label-md text-on-surface-variant uppercase">Interviews Scheduled</p>
+<h2 class="text-headline-md font-headline-md mt-1">42</h2>
+</div>
+<div class="bg-surface-container-lowest p-lg rounded-xl tonal-card-shadow border border-outline-variant/30">
+<div class="flex justify-between items-start mb-sm">
+<div class="p-2 bg-surface-variant rounded-lg text-primary">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+<span class="text-tertiary font-semibold flex items-center text-label-md">
+<span class="material-symbols-outlined text-sm">trending_up</span> 24%
+                            </span>
+</div>
+<p class="text-label-md font-label-md text-on-surface-variant uppercase">Accepted</p>
+<h2 class="text-headline-md font-headline-md mt-1">156</h2>
+</div>
+<div class="bg-surface-container-lowest p-lg rounded-xl tonal-card-shadow border border-outline-variant/30">
+<div class="flex justify-between items-start mb-sm">
+<div class="p-2 bg-error-container rounded-lg text-error">
+<span class="material-symbols-outlined">cancel</span>
+</div>
+<span class="text-error font-semibold flex items-center text-label-md">
+<span class="material-symbols-outlined text-sm">trending_down</span> 4%
+                            </span>
+</div>
+<p class="text-label-md font-label-md text-on-surface-variant uppercase">Rejected</p>
+<h2 class="text-headline-md font-headline-md mt-1">89</h2>
+</div>
+</section>
+<!-- Candidates Table -->
+<section class="bg-surface-container-lowest rounded-xl tonal-card-shadow border border-outline-variant/30 overflow-hidden">
+<div class="px-lg py-md border-b border-outline-variant flex justify-between items-center bg-surface-container-low/50">
+<h3 class="text-title-lg font-headline-md">Candidates List</h3>
+<div class="flex gap-sm">
+<button class="px-4 py-2 text-body-md font-medium text-on-surface-variant hover:bg-surface-container rounded-lg transition-colors border border-outline-variant">Export CSV</button>
+<button class="px-4 py-2 text-body-md font-medium text-on-primary bg-primary rounded-lg tonal-card-shadow transition-all active:scale-95">Bulk Actions</button>
+</div>
+</div>
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low/30">
+<tr>
+<th class="px-lg py-4 text-label-md font-label-md text-on-surface-variant uppercase">Candidate Name</th>
+<th class="px-lg py-4 text-label-md font-label-md text-on-surface-variant uppercase">Position</th>
+<th class="px-lg py-4 text-label-md font-label-md text-on-surface-variant uppercase">Exp</th>
+<th class="px-lg py-4 text-label-md font-label-md text-on-surface-variant uppercase">Skills</th>
+<th class="px-lg py-4 text-label-md font-label-md text-on-surface-variant uppercase">Status</th>
+<th class="px-lg py-4 text-label-md font-label-md text-on-surface-variant uppercase text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/50">
+<tr class="hover:bg-surface-container/50 transition-colors cursor-pointer group bg-surface-container-high/20">
+<td class="px-lg py-4">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-lg">AF</div>
+<div>
+<p class="font-semibold text-on-surface">Arlo Finch</p>
+<p class="text-xs text-on-surface-variant">arlo.finch@example.com</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-4 text-body-md">Senior Frontend Dev</td>
+<td class="px-lg py-4 text-body-md">6 yrs</td>
+<td class="px-lg py-4">
+<div class="flex gap-xs">
+<span class="px-2 py-0.5 bg-surface-container-highest text-on-secondary-fixed-variant rounded-md text-[11px] font-medium">React</span>
+<span class="px-2 py-0.5 bg-surface-container-highest text-on-secondary-fixed-variant rounded-md text-[11px] font-medium">Tailwind</span>
+<span class="px-2 py-0.5 bg-surface-container-highest text-on-secondary-fixed-variant rounded-md text-[11px] font-medium">+2</span>
+</div>
+</td>
+<td class="px-lg py-4">
+<span class="px-3 py-1 bg-surface-variant text-primary rounded-full text-xs font-semibold">Screening</span>
+</td>
+<td class="px-lg py-4 text-right">
+<div class="flex justify-end gap-xs opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-surface-variant rounded-full text-primary"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+<button class="p-2 hover:bg-green-100 rounded-full text-green-600"><span class="material-symbols-outlined text-[20px]">check_circle</span></button>
+<button class="p-2 hover:bg-red-100 rounded-full text-error"><span class="material-symbols-outlined text-[20px]">cancel</span></button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container/50 transition-colors cursor-pointer group">
+<td class="px-lg py-4">
+<div class="flex items-center gap-md">
+<img alt="Jane Doe" class="w-10 h-10 rounded-full object-cover" data-alt="A professional and friendly portrait of a female software engineer in a modern workspace. She has a bright, confident expression and is dressed in smart-casual professional attire. The background features a soft-focus office with warm natural lighting and plants, evoking a collaborative and progressive tech culture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAd2Biq2ujkvopD6uEaO5-8sJRUQNIymG2WvwwRy4qwnlnp2B6j7ViCtfpMcdMsCBaf-CxicQn2tCjMxZnNUqZ76R0WUrDifZeV29GO6mMcLWWoa7VdyK5kZZTMQFCxlT23dnR-rkASJQ-UXfAnAPhWoLZJ0CP9NtP_FS9FR9eR3VqSB6VBOfNnSBXTqmen_szj26bPS6W2v-lYVznbm8EhqUgzPIbZnC2TpRwYtkcvThqxNRtmN9coA6engT_cVb8uV5UsqeIinHk"/>
+<div>
+<p class="font-semibold text-on-surface">Elena Rodriguez</p>
+<p class="text-xs text-on-surface-variant">elena.r@agency.net</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-4 text-body-md">Lead UX Designer</td>
+<td class="px-lg py-4 text-body-md">8 yrs</td>
+<td class="px-lg py-4">
+<div class="flex gap-xs">
+<span class="px-2 py-0.5 bg-surface-container-highest text-on-secondary-fixed-variant rounded-md text-[11px] font-medium">Figma</span>
+<span class="px-2 py-0.5 bg-surface-container-highest text-on-secondary-fixed-variant rounded-md text-[11px] font-medium">Research</span>
+</div>
+</td>
+<td class="px-lg py-4">
+<span class="px-3 py-1 bg-secondary-container text-secondary rounded-full text-xs font-semibold">Interview</span>
+</td>
+<td class="px-lg py-4 text-right">
+<div class="flex justify-end gap-xs opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-surface-variant rounded-full text-primary"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+<button class="p-2 hover:bg-green-100 rounded-full text-green-600"><span class="material-symbols-outlined text-[20px]">check_circle</span></button>
+<button class="p-2 hover:bg-red-100 rounded-full text-error"><span class="material-symbols-outlined text-[20px]">cancel</span></button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container/50 transition-colors cursor-pointer group">
+<td class="px-lg py-4">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold text-lg">TK</div>
+<div>
+<p class="font-semibold text-on-surface">Toby Kimmich</p>
+<p class="text-xs text-on-surface-variant">tkimmich@devs.com</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-4 text-body-md">Backend Engineer</td>
+<td class="px-lg py-4 text-body-md">4 yrs</td>
+<td class="px-lg py-4">
+<div class="flex gap-xs">
+<span class="px-2 py-0.5 bg-surface-container-highest text-on-secondary-fixed-variant rounded-md text-[11px] font-medium">Go</span>
+<span class="px-2 py-0.5 bg-surface-container-highest text-on-secondary-fixed-variant rounded-md text-[11px] font-medium">SQL</span>
+</div>
+</td>
+<td class="px-lg py-4">
+<span class="px-3 py-1 bg-surface-container text-on-surface-variant rounded-full text-xs font-semibold">New</span>
+</td>
+<td class="px-lg py-4 text-right">
+<div class="flex justify-end gap-xs opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-surface-variant rounded-full text-primary"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+<button class="p-2 hover:bg-green-100 rounded-full text-green-600"><span class="material-symbols-outlined text-[20px]">check_circle</span></button>
+<button class="p-2 hover:bg-red-100 rounded-full text-error"><span class="material-symbols-outlined text-[20px]">cancel</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+</div>
+</main>
+<!-- Details Panel (Right Side) -->
+<aside class="w-96 bg-surface-container-lowest border-l border-outline-variant flex flex-col tonal-card-shadow overflow-hidden">
+<div class="p-lg flex-1 overflow-y-auto custom-scrollbar">
+<div class="flex flex-col items-center text-center mb-xl">
+<div class="relative mb-md">
+<img alt="Arlo Finch" class="w-24 h-24 rounded-2xl object-cover tonal-card-shadow" data-alt="A professional studio headshot of a senior software engineer. The individual is male, with a confident and relaxed posture. The lighting is crisp and modern, featuring blue and white tonal accents in the background that match the HR application's palette. He is wearing a minimalist dark shirt, and the overall image quality is high-definition with a clean, editorial look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhKwV4FI4Nz8-RcTMu7IFGVIsf4ixFOFc91wjd5-ooy1YDrQ85DX6FJRfshvPlFv6CGdYP3lJw__V8fW1eFCB9E71CIA6Odx4GQb9zi0b1ggQr3P3XApxnOBPQqEz_1b1QlJ9FSvQPQyp2xtGc-75h7xGCpESJy1DILqY6lNFWFQGpGF0G2SH5QFj0zg7ebSAwcUZxt_j_phgBLMypodQ7vGXYU2WTz25OEtFFGKoPGuXvvJc4678yJ1fND11GQ6ZSOTDWoCCRA1s"/>
+<span class="absolute bottom-[-8px] right-[-8px] bg-green-500 border-4 border-surface-container-lowest w-6 h-6 rounded-full"></span>
+</div>
+<h2 class="text-headline-md font-headline-md">Arlo Finch</h2>
+<p class="text-body-md text-primary font-medium">Senior Frontend Developer</p>
+<div class="flex gap-sm mt-md">
+<button class="p-2 bg-surface-container hover:bg-surface-variant rounded-lg transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">mail</span>
+</button>
+<button class="p-2 bg-surface-container hover:bg-surface-variant rounded-lg transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">call</span>
+</button>
+<button class="p-2 bg-surface-container hover:bg-surface-variant rounded-lg transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">link</span>
+</button>
+</div>
+</div>
+<div class="space-y-xl">
+<div class="grid grid-cols-2 gap-md">
+<div class="p-md bg-surface-container-low rounded-lg">
+<p class="text-label-md font-label-md text-on-surface-variant uppercase mb-1">Experience</p>
+<p class="text-body-lg font-semibold">6 Years</p>
+</div>
+<div class="p-md bg-surface-container-low rounded-lg">
+<p class="text-label-md font-label-md text-on-surface-variant uppercase mb-1">Expected Sal.</p>
+<p class="text-body-lg font-semibold">$145k/yr</p>
+</div>
+</div>
+<div>
+<h4 class="text-label-md font-label-md text-on-surface-variant uppercase mb-sm">Technical Skills</h4>
+<div class="flex flex-wrap gap-xs">
+<span class="px-3 py-1 bg-primary/10 text-primary border border-primary/20 rounded-lg text-body-md font-medium">React.js</span>
+<span class="px-3 py-1 bg-primary/10 text-primary border border-primary/20 rounded-lg text-body-md font-medium">TypeScript</span>
+<span class="px-3 py-1 bg-primary/10 text-primary border border-primary/20 rounded-lg text-body-md font-medium">Tailwind CSS</span>
+<span class="px-3 py-1 bg-primary/10 text-primary border border-primary/20 rounded-lg text-body-md font-medium">Figma</span>
+<span class="px-3 py-1 bg-primary/10 text-primary border border-primary/20 rounded-lg text-body-md font-medium">Node.js</span>
+</div>
+</div>
+<div>
+<h4 class="text-label-md font-label-md text-on-surface-variant uppercase mb-sm">Resume Summary</h4>
+<p class="text-body-md text-on-surface-variant leading-relaxed">
+                            Highly skilled Frontend Engineer with a focus on building scalable, high-performance web applications. Expert in modern JavaScript frameworks and utility-first CSS. Proven track record of leading design-to-code transitions for enterprise-level platforms.
+                        </p>
+</div>
+</div>
+</div>
+<div class="p-lg bg-surface-container-low border-t border-outline-variant space-y-sm">
+<button class="w-full bg-primary text-on-primary py-3 rounded-lg font-semibold tonal-card-shadow hover:translate-y-[-1px] transition-transform active:scale-95 flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined">event</span>
+                    Move to Interview
+                </button>
+<div class="grid grid-cols-2 gap-sm">
+<button class="bg-surface-container-highest text-on-surface-variant py-2 rounded-lg font-semibold hover:bg-surface-variant transition-colors border border-outline-variant">Shortlist</button>
+<button class="bg-error/10 text-error py-2 rounded-lg font-semibold hover:bg-error hover:text-on-error transition-all">Reject</button>
+</div>
+</div>
+</aside>
+</div>
+<!-- Micro-interaction Scripts -->
+<script>
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('click', () => {
+                // Highlight row logic
+                document.querySelectorAll('tr').forEach(r => r.classList.remove('bg-surface-container-high/20'));
+                row.classList.add('bg-surface-container-high/20');
+                
+                // Add a small bounce effect on selection
+                row.classList.add('scale-[0.99]');
+                setTimeout(() => row.classList.remove('scale-[0.99]'), 100);
+            });
+        });
+
+        // Floating action button-like effect for the main CTA
+        const postJobBtn = document.querySelector('button:has(span:contains("Post New Job"))');
+        if (postJobBtn) {
+            postJobBtn.addEventListener('mousedown', () => postJobBtn.classList.add('scale-95'));
+            postJobBtn.addEventListener('mouseup', () => postJobBtn.classList.remove('scale-95'));
+        }
+    </script>
+</body></html>
